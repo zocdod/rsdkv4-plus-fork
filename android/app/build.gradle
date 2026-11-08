@@ -8,6 +8,7 @@ else {
 }
 
 def autobuildFlag = false
+def oldSyntaxFlag = false
 
 android {
     ndkVersion "22.1.7171670"
@@ -22,9 +23,11 @@ android {
         versionName "1.3.3"
         if(project.hasProperty("RETRO_DISABLE_PLUS"))
             autobuildFlag = true
+        if(project.hasProperty("RETRO_ACCEPT_OLD_SYNTAX"))
+            oldSyntaxFlag = true
         externalNativeBuild {
             cmake {
-                arguments "-DAPP_PLATFORM=android-16", "-DANDROID_STL=c++_static", "-DPLATFORM=Android", "-DRETRO_DISABLE_PLUS=$autobuildFlag"
+                arguments "-DAPP_PLATFORM=android-16", "-DANDROID_STL=c++_static", "-DPLATFORM=Android", "-DRETRO_DISABLE_PLUS=$autobuildFlag", "-DRETRO_ACCEPT_OLD_SYNTAX=$oldSyntaxFlag"
                 abiFilters 'armeabi-v7a', 'arm64-v8a'
             }
         }
